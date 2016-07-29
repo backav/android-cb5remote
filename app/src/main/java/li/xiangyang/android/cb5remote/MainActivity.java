@@ -1,15 +1,13 @@
 package li.xiangyang.android.cb5remote;
 
 import android.app.Activity;
-import android.content.Context;
 import android.hardware.ConsumerIrManager;
 import android.os.Vibrator;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
-import li.xiangyang.android.cb5remote.protocol.NEC6122;
+import li.xiangyang.infrared.protocol.NEC6122;
 
 public class MainActivity extends Activity {
 
@@ -23,7 +21,7 @@ public class MainActivity extends Activity {
 
         ciManager = (ConsumerIrManager) getSystemService(CONSUMER_IR_SERVICE);
         if (!ciManager.hasIrEmitter()) {
-            Toast.makeText(this, "不支持红外发射器", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, R.string.no_ir_supported, Toast.LENGTH_LONG).show();
             finish();
         }
 

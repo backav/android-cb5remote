@@ -38,8 +38,8 @@ public class IrregularImageView extends ImageView {
         if (width == -1 || height == -1) {
             Drawable drawable = getDrawable();
             bitmap = ((BitmapDrawable) drawable).getBitmap();
-            width = getWidth();
-            height = getHeight();
+            width = bitmap.getWidth();
+            height = bitmap.getHeight();
         }
 
         if (null == bitmap || x < 0 || y < 0 || x >= width || y >= height) {

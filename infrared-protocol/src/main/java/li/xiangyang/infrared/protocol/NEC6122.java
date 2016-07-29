@@ -1,37 +1,34 @@
-package li.xiangyang.android.cb5remote.protocol;
+package li.xiangyang.infrared.protocol;
 
-import android.util.Log;
-
-import java.util.Arrays;
 
 /**
  * Created by bac on 16/7/26.
  */
-public class NEC6122 implements ICommand {
+public class NEC6122 implements IProtocol {
 
     private final int pulseBurst = (int) 562.5;
     private int[] pattern;
 
     public NEC6122(short address, byte code) {
         pattern = conact(conact(new int[]{9000, 4500}, conact(getValues(address, 0, 16),
-                conact(getValues(code, 0, 8), getReverseValues(code, 0, 8)))),new int[]{pulseBurst});
+                conact(getValues(code, 0, 8), getReverseValues(code, 0, 8)))), new int[]{pulseBurst});
 
     }
 
     private int[] getValues(int data, int from, int to) {
-        int[] v = new int[(to - from)*2];
+        int[] v = new int[(to - from) * 2];
         for (int i = from; i < to; i++) {
-            v[(i-from)*2]=pulseBurst;
-            v[(i-from)*2+1] = getValue(data, i);
+            v[(i - from) * 2] = pulseBurst;
+            v[(i - from) * 2 + 1] = getValue(data, i);
         }
         return v;
     }
 
     private int[] getReverseValues(int data, int from, int to) {
-        int[] v = new int[(to - from)*2];
+        int[] v = new int[(to - from) * 2];
         for (int i = from; i < to; i++) {
-            v[(i-from)*2]=pulseBurst;
-            v[(i-from)*2+1] = getReverseValue(data, i);
+            v[(i - from) * 2] = pulseBurst;
+            v[(i - from) * 2 + 1] = getReverseValue(data, i);
         }
         return v;
     }
