@@ -2,6 +2,9 @@ apply plugin: 'java'
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
+
+    sourceCompatibility = 1.7
+    targetCompatibility = 1.7
 }
 
 // Bintray upload
@@ -10,7 +13,7 @@ apply plugin: 'com.jfrog.bintray'
 apply plugin: 'com.github.dcendents.android-maven'
 
 group = "li.xiangyang.infrared"
-version = "0.1"
+version = "0.2"
 
 def siteUrl = 'https://github.com/backav/infrared-protocol'    // project homepage
 def gitUrl = 'https://github.com/backav/infrared-protocol' // project git
