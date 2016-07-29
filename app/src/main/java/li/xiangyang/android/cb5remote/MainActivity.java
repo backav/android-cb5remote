@@ -1,8 +1,9 @@
 package li.xiangyang.android.cb5remote;
 
 import android.app.Activity;
+import android.content.Context;
 import android.hardware.ConsumerIrManager;
-import android.support.v7.app.AppCompatActivity;
+import android.os.Vibrator;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -13,6 +14,7 @@ import li.xiangyang.android.cb5remote.protocol.NEC6122;
 public class MainActivity extends Activity {
 
     ConsumerIrManager ciManager;
+    Vibrator vibrator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +26,8 @@ public class MainActivity extends Activity {
             Toast.makeText(this, "不支持红外发射器", Toast.LENGTH_LONG).show();
             finish();
         }
+
+        vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
     }
 
     private void sendWithCode(byte code) {
@@ -31,7 +35,13 @@ public class MainActivity extends Activity {
     }
 
     public void onClick(View btn) {
+        if (vibrator.hasVibrator()){
+            vibrator.vibrate(100);
+        }
         sendWithCode(parseCodeFromTag(btn));
+        if (vibrator.hasVibrator()){
+            vibrator.vibrate(50);
+        }
     }
 
     private byte parseCodeFromTag(View btn) {
