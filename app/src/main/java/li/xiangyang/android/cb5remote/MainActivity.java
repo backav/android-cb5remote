@@ -20,24 +20,25 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         ciManager = (ConsumerIrManager) getSystemService(CONSUMER_IR_SERVICE);
-        if (!ciManager.hasIrEmitter()) {
-            Toast.makeText(this, R.string.no_ir_supported, Toast.LENGTH_LONG).show();
-            finish();
-        }
 
         vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
     }
 
     private void sendWithCode(byte code) {
+        if (!ciManager.hasIrEmitter()) {
+            Toast.makeText(this, R.string.no_ir_supported, Toast.LENGTH_LONG).show();
+            return;
+        }
+
         ciManager.transmit(38000, new NEC6122((short) 0xff00, code).getPattern());
     }
 
     public void onClick(View btn) {
-        if (vibrator.hasVibrator()){
+        if (vibrator.hasVibrator()) {
             vibrator.vibrate(100);
         }
         sendWithCode(parseCodeFromTag(btn));
-        if (vibrator.hasVibrator()){
+        if (vibrator.hasVibrator()) {
             vibrator.vibrate(50);
         }
     }
